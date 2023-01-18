@@ -1,0 +1,38 @@
+server:
+  port: 9001
+  shutdown: graceful
+  netty:
+    connection-timeout: 2s
+
+
+spring:
+  
+  
+  r2dbc:
+    username: user
+    password: password
+    url: r2dbc:postgresql://localhost:5433/orders
+    pool:
+      max-create-connection-time: 2s
+      initial-size: 5
+      max-size: 10
+
+ 
+    # Optional h2 console port if not set or set 0, available port is given
+      
+    
+    
+  
+  
+eureka:
+ client:
+  registerWithEureka: true
+  fetchRegistry: true
+  serviceUrl:
+   defaultZone: http://localhost:8070/eureka/ 
+     
+      
+ 
+ 
+ 
+ 

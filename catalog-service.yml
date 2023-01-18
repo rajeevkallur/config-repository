@@ -1,0 +1,30 @@
+spring:
+  r2dbc:
+    url: r2dbc:postgresql://localhost:5432/catalog
+    
+    username: user
+    password: password
+    pool:
+      max-create-connection-time: 2s
+      initial-size: 5
+      max-size: 10
+
+  
+       
+server:
+  port: 9002 
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+        - '*'
+eureka:
+ client:
+  registerWithEureka: true
+  fetchRegistry: true
+  serviceUrl:
+   defaultZone: http://localhost:8070/eureka/        
+        
+      
