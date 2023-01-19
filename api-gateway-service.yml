@@ -75,17 +75,17 @@ spring:
   #   timeout: 10m
   #   redis:
   #     namespace: myapp:edge
-  # security:
-  #   oauth2:
-  #     client:
-  #       registration:
-  #         keycloak:
-  #           client-id: api-gateway-service
-  #           client-secret: myapp-keycloak-secret
-  #           scope: openid,roles
-  #       provider:
-  #         keycloak:
-  #           issuer-uri: http://myapp-redis:8080/realms/ecomappProductshop
+  security:
+    oauth2:
+      client:
+        registration:
+          keycloak:
+            client-id: api-gateway-service
+            client-secret: ecomm-keycloak-secret
+            scope: openid,roles
+        provider:
+          keycloak:
+            issuer-uri: http://localhost:8080/realms/Ecommshop
 
 resilience4j:
   circuitbreaker:
