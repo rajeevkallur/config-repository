@@ -26,45 +26,45 @@ spring:
           type: elastic
           max-idle-time: 15s
           max-life-time: 60s
-      # default-filters:
-      #   - SaveSession
-      #   - TokenRelay
-      #   - name: RequestRateLimiter
-      #     args:
-      #       redis-rate-limiter.replenishRate: 10
-      #       redis-rate-limiter.burstCapacity: 20
-      #       redis-rate-limiter.requestedTokens: 1
-      #   - name: Retry
-      #     args:
-      #       retries: 3
-      #       methods: GET
-      #       series: SERVER_ERROR
-      #       exceptions: java.io.IOException, java.util.concurrent.TimeoutException
-      #       backoff:
-      #         firstBackoff: 50ms
-      #         maxBackOff: 500ms
-      #         factor: 2
-      #         basedOnPreviousValue: false
+      default-filters:
+        # - SaveSession
+        # - TokenRelay
+        # - name: RequestRateLimiter
+        #   args:
+        #     redis-rate-limiter.replenishRate: 10
+        #     redis-rate-limiter.burstCapacity: 20
+        #     redis-rate-limiter.requestedTokens: 1
+        - name: Retry
+          args:
+            retries: 3
+            methods: GET
+            series: SERVER_ERROR
+            exceptions: java.io.IOException, java.util.concurrent.TimeoutException
+            backoff:
+              firstBackoff: 50ms
+              maxBackOff: 500ms
+              factor: 2
+              basedOnPreviousValue: false
       routes:
         
         - id: catalog-route
-          uri: lb://catalog-service
+          uri: lb://CATALOG-SERVICE
           predicates:
             - Path=/api/v1/products/**
-          # filters:
-          #   - name: CircuitBreaker
-          #     args:
-          #       name: catalogCircuitBreaker
-          #       fallbackUri: forward:/catalog-fallback
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: catalogCircuitBreaker
+                fallbackUri: forward:/catalog-fallback
         - id: order-route
-          uri: lb://order-service
+          uri: lb://ORDER-SERVICE
           predicates:
             - Path=/api/v1/orders/**
-          # filters:
-          #   - name: CircuitBreaker
-          #     args:
-          #       name: orderCircuitBreaker
-          #       fallbackUri: forward:/catalog-fallback
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: orderCircuitBreaker
+                fallbackUri: forward:/catalog-fallback
   # redis:
   #   connect-timeout: 2s
   #   host: localhost
@@ -87,15 +87,15 @@ spring:
   #         keycloak:
   #           issuer-uri: http://myapp-redis:8080/realms/ecomappProductshop
 
-# resilience4j:
-#   circuitbreaker:
-#     configs:
-#       default:
-#         slidingWindowSize: 20
-#         permittedNumberOfCallsInHalfOpenState: 5
-#         failureRateThreshold: 50
-#         waitDurationInOpenState: 15
-#   timelimiter:
-#     configs:
-#       default:
-#         timeoutDuration: 5s
+resilience4j:
+  circuitbreaker:
+    configs:
+      default:
+        slidingWindowSize: 20
+        permittedNumberOfCallsInHalfOpenState: 5
+        failureRateThreshold: 50
+        waitDurationInOpenState: 15
+  timelimiter:
+    configs:
+      default:
+        timeoutDuration: 5s
