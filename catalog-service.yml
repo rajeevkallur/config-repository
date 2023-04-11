@@ -1,9 +1,9 @@
 spring:
   r2dbc:
-    url: r2dbc:postgresql://localhost:5432/catalog
+    url: r2dbc:postgresql://catalofmsdb.cjwpwsb7y4xs.ap-south-1.rds.amazonaws.com:5432/catalog
     
-    username: user
-    password: password
+    username: postgres
+    password: admin1234
     pool:
       max-create-connection-time: 2s
       initial-size: 5
