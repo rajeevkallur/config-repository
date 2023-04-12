@@ -11,7 +11,7 @@ spring:
   r2dbc:
     username: user
     password: password
-    url: r2dbc:postgresql://localhost:5432/ordersdb
+    url: r2dbc:postgresql://catalofmsdb.cjwpwsb7y4xs.ap-south-1.rds.amazonaws.com:5432/ordersdb
     pool:
       max-create-connection-time: 2s
       initial-size: 5
